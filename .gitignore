@@ -1,0 +1,17 @@
+# IDE / editor files
+.idea/
+.vscode/
+.*.swp
+
+# General
+/_tmp
+
+# Python
+__pycache__
+*.py[cod]
+/.venv
+/venv
+
+# MicroPython
+/.webrepl_client
+*.mpy

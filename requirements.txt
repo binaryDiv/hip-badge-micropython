@@ -1,0 +1,13 @@
+# Dependencies for development in PyCharm (+ MicroPython plugin)
+adafruit-ampy
+click
+docopt
+pyserial
+python-dotenv
+micropython-esp32-stubs~=1.19.1
+
+# Tool for flashing new firmware to the ESP32
+esptool
+
+# Tool for communicating with and transferring files to the ESP32
+rshell
