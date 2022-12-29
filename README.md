@@ -55,6 +55,20 @@ $ make flash-firmware
 
 (If you're further interested: The correct firmware for the badge is found on [this page](https://micropython.org/download/esp32c3-usb/), which also describes the `esptool.py` commands that are needed to flash the firmware.)
 
+#### Notes for MacOS
+
+Basically, this step should work fine under MacOS, but you need to adjust the TTY device path, since MacOS has a different naming scheme (for Linux this is typically `/dev/ttyACM0`).
+
+First, find out the correct TTY path. Search for a file with a name like `/dev/tty.usbmodem*` or `/dev/tty.usbserial*`, for example `/dev/tty.usbmodem14201`. If you're unsure, unplug the board and check which file disappeared.
+
+Then create a file called `Makefile.local` with the following content, replacing the path with the one you just found out:
+
+```makefile
+TTY_PATH := /dev/tty.usbmodem14201
+```
+
+Now, you should be able to run the `make flash-firmware` command.
+
 ### Deploy the MicroPython code
 
 Your badge is now running on MicroPython. But there is no actual code on it yet, so it doesn't really do anything right now. (The LEDs might still be on, because they keep their state if nothing else is controlling them.)
