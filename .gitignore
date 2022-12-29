@@ -16,3 +16,7 @@ __pycache__
 # MicroPython
 /.webrepl_client
 *.mpy
+
+# Custom user files that should not be committed
+/Makefile.local
+/src_custom/*

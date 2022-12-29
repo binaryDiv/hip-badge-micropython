@@ -1,5 +1,5 @@
 # Configuration
-TTY_PATH ?= /dev/ttyACM0
+TTY_PATH := /dev/ttyACM0
 RSHELL_OPTS := --quiet
 
 # MicroPython firmware
@@ -22,19 +22,28 @@ install-venv:
 
 # -- Deployment
 
-# Copy all .py files from src/ to the board
+# Soft-reset (restart) the board
+.PHONY: reset-board
+reset-board:
+	$(ACTIVATE_VENV) && rshell $(RSHELL_OPTS) -p $(TTY_PATH) repl "~ import machine ~ machine.soft_reset() ~"
+
+# Copy all .py files from src/ (the default app) to the board
 .PHONY: deploy
 deploy:
 	$(ACTIVATE_VENV) && rshell $(RSHELL_OPTS) -p $(TTY_PATH) cp "src/*.py" /pyboard
 
-# Restart (reset) the board
-.PHONY: restart
-restart:
-	$(ACTIVATE_VENV) && rshell $(RSHELL_OPTS) -p $(TTY_PATH) repl "~ import machine ~ machine.soft_reset() ~"
+# Copy the default app from src/ to the board and restart the board (this will monitor the output of the code)
+.PHONY: run
+run: deploy reset-board
 
-# Copy files from src/ to the board and then restart the board
-.PHONY: deploy-restart
-deploy-restart: deploy restart
+# Copy custom source code from src_custom/ to the board
+.PHONY: deploy-custom
+deploy-custom:
+	$(ACTIVATE_VENV) && rshell $(RSHELL_OPTS) -p $(TTY_PATH) cp "src_custom/*.py" /pyboard
+
+# Copy custom source code from src_custom/ to the board and restart the board (this will monitor the output of the code)
+.PHONY: run-custom
+run-custom: deploy-custom reset-board
 
 # -- Firmware flashing
 
@@ -63,3 +72,8 @@ flash-firmware: download-firmware
 	$(ACTIVATE_VENV) && esptool.py --chip esp32c3 --port $(TTY_PATH) --baud 460800 write_flash -z 0x0 downloads/$(MPY_FIRMWARE_FILENAME)
 	@echo
 	@echo "MicroPython has been flashed to the board!"
+
+# -- Others
+
+# Include local Makefile if it exists (use this file to override variables etc.)
+-include Makefile.local

@@ -69,14 +69,24 @@ Now, press the reset button on the badge (which is the small blue button in the 
 
 And you're done! \o/
 
-### Modifying the code
+### Updating the code
 
-The code can be found in the `src` directory. The important one is `main.py`, which is the file that is automatically executed when starting the board and which contains the main program.
+The code in this repository is still in development. When there is an update, simply run `git pull` to update the files, run `make deploy` again to deploy the new code to your badge and reset the device.
 
-Feel free to play around with the code (you might also take a look at the other example code found in `examples`).
+## Hack your badge!
 
-To deploy your modified code, run `make deploy` again and press reset. Alternatively, you can run `make deploy-restart`, which will copy your code to the board and then automatically reset the board.
+This is where the fun part begins: How to hack the existing code and experiment with your badge.
 
-With the `make deploy-restart` command, you can also see the output of the device, so you can use `print()` statements in your code to debug it (and see error messages if anything goes wrong). You can exit this again by pressing `Ctrl-C`.
+The code that is now running on your badge can be found in the `src` directory. The most important file is `main.py`, which is the file that is automatically executed when starting the board and which contains the main program.
+
+Of course, you can directly edit `src/main.py` and deploy the modified code. However, this will cause conflicts when there are updates in this repository that you want to pull.
+
+Instead, it is recommended to write your own code in the `src_custom` directory. You can start by copying the code of `src/main.py` to `src_custom/main.py` and modify it as you like.
+
+To deploy your custom code, use the command `make deploy-custom` and press reset. Alternatively, you can run `make run-custom`, which will copy your code to the board like the other command, but then automatically reset the board.
+
+With the `make run-custom` command, you can also see the output of the device, so you can use `print()` statements in your code to debug it (and see error messages if anything goes wrong). You can exit this again by pressing `Ctrl-C`.
+
+Feel free to play around with the code!
 
 (To be continued!)
