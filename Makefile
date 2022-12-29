@@ -17,7 +17,7 @@ all: deploy
 # Create venv and install dependencies
 .PHONY: install-venv
 install-venv:
-	python -m venv venv
+	python3 -m venv venv
 	$(ACTIVATE_VENV) && pip install -r requirements.txt
 
 # -- Deployment
