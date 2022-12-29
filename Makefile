@@ -7,7 +7,7 @@ MPY_FIRMWARE_FILENAME := esp32c3-usb-20220618-v1.19.1.bin
 MPY_FIRMWARE_URL := https://micropython.org/resources/firmware/$(MPY_FIRMWARE_FILENAME)
 
 # Helper variables
-ACTIVATE_VENV := source .venv/bin/activate
+ACTIVATE_VENV := source venv/bin/activate
 
 # Default target (deploys code)
 all: deploy
@@ -17,8 +17,8 @@ all: deploy
 # Create venv and install dependencies
 .PHONY: install-venv
 install-venv:
-	python -m venv .venv
-	source .venv/bin/activate && pip install -r requirements.txt
+	python -m venv venv
+	$(ACTIVATE_VENV) && pip install -r requirements.txt
 
 # -- Deployment
 
