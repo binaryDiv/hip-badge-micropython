@@ -39,6 +39,7 @@ run: deploy reset-board
 # Copy custom source code from src_custom/ to the board
 .PHONY: deploy-custom
 deploy-custom:
+	@test -e src_custom/main.py || { echo "ERROR: Please create the file src_custom/main.py first."; exit 1; }
 	$(ACTIVATE_VENV) && rshell $(RSHELL_OPTS) -p $(TTY_PATH) cp "src_custom/*.py" /pyboard
 
 # Copy custom source code from src_custom/ to the board and restart the board (this will monitor the output of the code)
