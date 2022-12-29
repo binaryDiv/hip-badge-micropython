@@ -5,6 +5,7 @@
 
 # General
 /_tmp
+/downloads
 
 # Python
 __pycache__
